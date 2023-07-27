@@ -18,4 +18,19 @@ export class TodoService {
   getTodos(): Observable<TodoResponse[]>{
     return this.http.get<TodoResponse[]>(this.todoUrl)
   }
+
+  toState(code:number):State {
+    switch(code){
+        case 0:
+            return IS_INACTIVE
+        case 1:
+            return IS_ACTIVE
+        case 2:
+            return ACTIVE
+        default:
+            return IS_INACTIVE
+    }
+  }
+
+
 }
