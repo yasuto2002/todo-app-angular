@@ -8,14 +8,14 @@ import { TodoResponse } from '../../models/todo/TodoResponse.model';
 export class TodoDataService implements InMemoryDbService {
 
   createDb() {
-    const todos: TodoResponse[] = [
+    const todo: TodoResponse[] = [
       {id: 1, title: 'Hydrogen', category: "フロントエンド", body: 'ボディ',state: 1},
       {id: 2, title: 'Helium', category: "フロントエンド", body: 'ボディ',state: 2},
       {id: 3, title: 'Lithium', category: "フロントエンド", body: 'ボディ',state: 3},
       {id: 4, title: 'Beryllium', category: "フロントエンド", body: 'ボディ',state: 1},
       {id: 5, title: 'Boron', category: "フロントエンド", body: 'ボディ',state: 1},
     ];
-    return {todos};
+    return {todo};
   }
 
   genId(todos: TodoResponse[]): number {

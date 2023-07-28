@@ -7,8 +7,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatButtonModule } from '@angular/material/button';
 import { TodoModule } from './todo/todo.module';
 import { HeaderComponent } from './header/header.component';
-import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { TodoMockModule } from './apiMock/todo/todo-mock.module';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,7 @@ import { TodoMockModule } from './apiMock/todo/todo-mock.module';
     MatButtonModule,
     TodoModule,
     MatToolbarModule,
-    TodoMockModule 
+    TodoMockModule
   ],
   providers: [],
   bootstrap: [AppComponent]
