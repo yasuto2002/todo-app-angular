@@ -5,5 +5,5 @@ export interface TodoResponse {
     title: string;
     body: string;
     state: number;
-    category: string;
+    category_name: string;
 }

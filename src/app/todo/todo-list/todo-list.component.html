@@ -12,12 +12,12 @@
 
     <ng-container matColumnDef="state">
       <th mat-header-cell *matHeaderCellDef> State </th>
-      <td mat-cell *matCellDef="let element"> {{this.todoService.toState(element.state).name}} </td>
+      <td mat-cell *matCellDef="let element"> {{this.todoService.getStateName(element.state)}} </td>
     </ng-container>
   
     <ng-container matColumnDef="category">
       <th mat-header-cell *matHeaderCellDef> Category </th>
-      <td mat-cell *matCellDef="let element"> {{element.category}}</td>
+      <td mat-cell *matCellDef="let element"> {{element.category_name}}</td>
     </ng-container>
   
     <ng-container matColumnDef="edit">

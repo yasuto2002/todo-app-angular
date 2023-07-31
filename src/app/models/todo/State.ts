@@ -28,6 +28,6 @@ export const toState = (code:number):State => {
         case 2:
             return ACTIVE
         default:
-            return IS_INACTIVE
+            throw new ReferenceError
     }
 }
