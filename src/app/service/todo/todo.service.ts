@@ -39,6 +39,8 @@ export class TodoService {
       return state.name;
     }catch{
       this.router.navigate(['error'])
+      console.error('state conversion error');
+      
       return "";
     }
   }
@@ -47,7 +49,7 @@ export class TodoService {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
     }else if(error.status === 500){
-      router.navigate(['error'])
+      router.navigate(['error'],{ queryParams: { message: 'api server error'}})
     }else {
       console.error(
         `Backend returned code`, error.error);
