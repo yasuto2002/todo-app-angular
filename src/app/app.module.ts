@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { TodoMockModule } from './apiMock/todo/todo-mock.module';
 import { HttpClientModule } from '@angular/common/http';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +24,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     TodoModule,
     MatToolbarModule,
-    TodoMockModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
