@@ -15,7 +15,12 @@ export class TodoDataService implements InMemoryDbService {
       {id: 4, title: 'Beryllium', category_name: "フロントエンド", body: 'ボディ',state: 1},
       {id: 5, title: 'Boron', category_name: "フロントエンド", body: 'ボディ',state: 1},
     ];
-    return {todo};
+    const category = [
+      { id: 1, name: 'フロントエンド', slug: "front", color_id: 1  },
+      { id: 2, name: 'バックエンド', slug: "back",  color_id: 2 },
+      { id: 3, name: 'インフラ', slug: "infra",   color_id: 3  }
+    ];
+    return {todo,category};
   }
 
   genId(todos: TodoResponse[]): number {
