@@ -5,6 +5,7 @@ import { TodoResponse } from '../../models/todo/TodoResponse.model';
 import { IS_ACTIVE,ACTIVE,IS_INACTIVE,State,toState } from 'src/app/models/todo/State';
 import { environment } from 'src/environments/environment.development';
 import { Router, ActivatedRoute } from '@angular/router';
+import { TodoRequest } from 'src/app/models/todo/TodoRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,10 @@ export class TodoService {
     private http  : HttpClient,
     private router: Router
   ) { }
+
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
 
   getTodos(): Observable<TodoResponse[]>{
     const url = `${environment.apiUrl}/todo`;
@@ -31,6 +36,13 @@ export class TodoService {
     (
       catchError(error => this.handleError(error,this.router))
     )
+  }
+
+  addTodo(todo: TodoRequest): Observable<any> {
+    const url = `${environment.apiUrl}/todo`
+    return this.http.post<any>(url, todo, this.httpOptions).pipe(
+      catchError(error => this.handleError(error,this.router))
+    );
   }
 
   getStateName(code:number):string {
