@@ -4,5 +4,5 @@ export interface CategoryResponse {
     id: number;
     name: string;
     slug: string;
-    color_id: number;
+    color_code: number;
 }

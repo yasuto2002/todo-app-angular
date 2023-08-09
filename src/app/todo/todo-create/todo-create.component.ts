@@ -1,7 +1,6 @@
 import { Component,OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
+import { FormBuilder,FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
-import {ThemePalette} from '@angular/material/core';
 import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model';
 import { ACTIVE, IS_ACTIVE, IS_INACTIVE } from 'src/app/models/todo/State';
 import { CategoryService } from 'src/app/service/category/category.service';
@@ -21,12 +20,11 @@ export class TodoCreateComponent implements OnInit {
   todoFb = this.formBuilder.group({
     title: ['', [Validators.required,Validators.pattern("^[0-9a-zA-Zぁ-んーァ-ンヴー一-龠]*$")]],
     body: ['',[Validators.required,Validators.pattern("^[0-9a-zA-Zぁ-んーァ-ンヴー一-龠\s]*$")]],
-    state_id: [0,Validators.required],
+    state_code: [0,Validators.required],
     category_id: [0,Validators.required],
   });
 
   categories: CategoryResponse[] = [];
-
 
   states = [IS_INACTIVE,IS_ACTIVE,ACTIVE]
 

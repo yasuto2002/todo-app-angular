@@ -28,7 +28,7 @@
     </mat-form-field>
     <mat-form-field>
         <mat-label>State</mat-label>
-        <mat-select formControlName="state_id">
+        <mat-select formControlName="state_code">
             <mat-option *ngFor="let state of states" [value]="state.code" disabled="true">{{state.name}}</mat-option>
         </mat-select>
     </mat-form-field>

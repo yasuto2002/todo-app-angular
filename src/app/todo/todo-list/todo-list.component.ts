@@ -10,13 +10,13 @@ import { TodoService } from 'src/app/service/todo/todo.service';
 export class TodoListComponent implements OnInit  {
   constructor(public todoService:TodoService){}
   displayedColumns: string[] = ['title', 'body', 'state','category','edit','delete'];
-  dataSource:TodoResponse[] = [];
+  todos:TodoResponse[] = [];
   log(id:number):void{
     console.log(id)
   }
 
   getTodos():void{
-    this.todoService.getTodos().subscribe(todos => this.dataSource = todos)
+    this.todoService.getTodos().subscribe(todos => this.todos = todos)
   }
 
   ngOnInit():void{

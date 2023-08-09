@@ -60,7 +60,11 @@ export class TodoService {
   private handleError(error: HttpErrorResponse,router:Router) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
-    }else if(error.status === 500){
+    }
+    else if(error.status === 400){
+      router.navigate(['error'],{ queryParams: { message: error.message}})
+    }
+    else if(error.status === 500){
       router.navigate(['error'],{ queryParams: { message: 'api server error'}})
     }else {
       console.error(
