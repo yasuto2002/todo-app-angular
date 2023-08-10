@@ -1,5 +1,3 @@
-import { untracked } from "@angular/core";
-
 export interface TodoListResponse {
     id: number;
     title: string;

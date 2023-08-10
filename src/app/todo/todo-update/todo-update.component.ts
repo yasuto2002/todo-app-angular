@@ -54,7 +54,7 @@ export class TodoUpdateComponent implements OnInit {
   ngOnInit():void{
     this.route.params.subscribe(params => {
       this.todoId = +params['id']; 
-   });
+    });
     this.getCategories();
     this.getTodo(this.todoId);
   }
