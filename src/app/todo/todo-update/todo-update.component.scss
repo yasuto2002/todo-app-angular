@@ -1,0 +1,12 @@
+.todo-update{
+    display: flex;
+    flex-direction: column;
+    width:  70%;
+    margin: auto;
+    &_reg{
+        width: 20%;
+    }
+    &_errorMessages{
+        color: #ff0000;
+    }
+}

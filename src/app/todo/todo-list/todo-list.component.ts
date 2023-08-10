@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TodoResponse } from 'src/app/models/todo/TodoResponse.model';
+import { TodoListResponse } from 'src/app/models/todo/TodoListResponse.model';
 import { TodoService } from 'src/app/service/todo/todo.service';
 
 @Component({
@@ -10,10 +10,7 @@ import { TodoService } from 'src/app/service/todo/todo.service';
 export class TodoListComponent implements OnInit  {
   constructor(public todoService:TodoService){}
   displayedColumns: string[] = ['title', 'body', 'state','category','edit','delete'];
-  todos:TodoResponse[] = [];
-  log(id:number):void{
-    console.log(id)
-  }
+  todos:TodoListResponse[] = [];
 
   getTodos():void{
     this.todoService.getTodos().subscribe(todos => this.todos = todos)
@@ -21,6 +18,10 @@ export class TodoListComponent implements OnInit  {
 
   ngOnInit():void{
     this.getTodos();
+  }
+
+  todoDelete(todoId:number){
+    this.todoService.deleteTodo(todoId).subscribe(_ => this.getTodos())
   }
   
 }
