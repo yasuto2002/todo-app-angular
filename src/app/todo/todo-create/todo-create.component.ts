@@ -34,10 +34,20 @@ export class TodoCreateComponent implements OnInit {
   }
 
   getCategories():void {
-    this.categoryService.getCategories().subscribe(categories => this.categories = categories);
-  } 
+    this.categoryService.getCategories().subscribe(categories => {
+      this.categories = categories;
+      this.setCategory()
+    });
+  }
 
   ngOnInit():void{
     this.getCategories();
+  }
+
+  // category初期値
+  setCategory():void{
+    if(0 < this.categories.length){
+      this.todoFb.controls.category_id.setValue(this.categories[this.categories.length-1].id);
+    }
   }
 }
