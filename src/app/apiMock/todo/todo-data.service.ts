@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { InMemoryDbService } from 'angular-in-memory-web-api';
-import { TodoResponse } from '../../models/todo/TodoResponse.model';
+import { TodoListResponse } from '../../models/todo/TodoListResponse.model';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ import { TodoResponse } from '../../models/todo/TodoResponse.model';
 export class TodoDataService implements InMemoryDbService {
 
   createDb() {
-    const todo: TodoResponse[] = [
+    const todo: TodoListResponse[] = [
       {id: 1, title: 'Hydrogen', category_name: "フロントエンド", body: 'ボディ',state_code: 1},
       {id: 2, title: 'Helium', category_name: "フロントエンド", body: 'ボディ',state_code: 2},
       {id: 3, title: 'Lithium', category_name: "フロントエンド", body: 'ボディ',state_code: 1},
@@ -23,7 +23,7 @@ export class TodoDataService implements InMemoryDbService {
     return {todo,category};
   }
 
-  genId(todos: TodoResponse[]): number {
+  genId(todos: TodoListResponse[]): number {
     return todos.length > 0 ? Math.max(...todos.map(todo => todo.id)) + 1 : 11;
   }
 }
