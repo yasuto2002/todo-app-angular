@@ -1,16 +1,9 @@
 @charset "utf-8";
 .header {
-    height:            70px;
-    background-color:  #24292F;
-    width:             100%;
-    .header__content {
-        width:      1080px;
-        margin:     auto;
-    }
-    .header__logo {
-        color:             white;
-        line-height:       70px;
-        font-size:         20px;
-        font-weight:       bold;
+    &-logo{
+        &_link{
+            text-decoration: none;
+            color: black;
+        }
     }
 }
