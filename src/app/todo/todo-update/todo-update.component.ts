@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model';
@@ -8,13 +8,14 @@ import { TodoRequest } from 'src/app/models/todo/TodoRequest.model';
 import { TodoService } from 'src/app/service/todo/todo.service';
 import { Router,ActivatedRoute,ParamMap } from '@angular/router';
 import { TodoResponse } from 'src/app/models/todo/TodoResponse.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-update',
   templateUrl: './todo-update.component.html',
   styleUrls: ['./todo-update.component.scss']
 })
-export class TodoUpdateComponent implements OnInit {
+export class TodoUpdateComponent implements OnInit, OnDestroy {
 
   constructor(private route:ActivatedRoute,private formBuilder: FormBuilder, private categoryService: CategoryService,private todoService:TodoService,private router: Router){}
 
@@ -33,17 +34,19 @@ export class TodoUpdateComponent implements OnInit {
 
   states = [IS_INACTIVE,IS_ACTIVE,ACTIVE]
 
+  subscription:Subscription = new Subscription()
+
   onSubmit():void{
     const todoRequest: TodoRequest = this.todoFb.value as TodoRequest;
-    this.todoService.updateTodo(todoRequest,this.todoId).subscribe(_ => this.router.navigate(["todo"]));
+    this.subscription = this.todoService.updateTodo(todoRequest,this.todoId).subscribe(_ => this.router.navigate(["todo"]));
   }
 
   getCategories():void {
-    this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+    this.subscription = this.categoryService.getCategories().subscribe(categories => this.categories = categories);
   } 
 
   getTodo(id:number):void{
-    this.todoService.getTodo(id).subscribe(todo => {
+    this.subscription = this.todoService.getTodo(id).subscribe(todo => {
       this.todoFb.controls.title.setValue(todo.title);
       this.todoFb.controls.body.setValue(todo.body);
       this.todoFb.controls.state_code.setValue(todo.state_code);
@@ -52,11 +55,15 @@ export class TodoUpdateComponent implements OnInit {
   }
 
   ngOnInit():void{
-    this.route.params.subscribe(params => {
+    this.subscription = this.route.params.subscribe(params => {
       this.todoId = +params['id']; 
     });
     this.getCategories();
     this.getTodo(this.todoId);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
 }

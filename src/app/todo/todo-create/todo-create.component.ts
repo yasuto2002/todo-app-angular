@@ -1,4 +1,4 @@
-import { Component,OnInit } from '@angular/core';
+import { Component,OnInit,OnDestroy } from '@angular/core';
 import { FormBuilder,FormGroup } from '@angular/forms';
 import { Validators } from '@angular/forms';
 import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model';
@@ -7,13 +7,16 @@ import { CategoryService } from 'src/app/service/category/category.service';
 import { TodoRequest } from 'src/app/models/todo/TodoRequest.model';
 import { TodoService } from 'src/app/service/todo/todo.service';
 import { Router } from '@angular/router';
+import { HttpResponse } from '@angular/common/http';
+import { TodoIdResponse } from 'src/app/models/todo/TodoIdResponse.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-todo-create',
   templateUrl: './todo-create.component.html',
   styleUrls: ['./todo-create.component.scss']
 })
-export class TodoCreateComponent implements OnInit {
+export class TodoCreateComponent implements OnInit, OnDestroy {
 
   constructor(private formBuilder: FormBuilder, private categoryService: CategoryService,private todoService:TodoService,private router: Router){}
 
@@ -28,13 +31,21 @@ export class TodoCreateComponent implements OnInit {
 
   states = [IS_INACTIVE,IS_ACTIVE,ACTIVE]
 
+  subscription:Subscription = new Subscription()
+
   onSubmit():void{
     const todoRequest: TodoRequest = this.todoFb.value as TodoRequest;
-    this.todoService.addTodo(todoRequest).subscribe(_ => this.router.navigate(["todo"]));
+    this.subscription = this.todoService.addTodo(todoRequest).subscribe((response: HttpResponse<TodoIdResponse>) => {
+      if(response.headers.get("Location")){
+        this.router.navigate(["todo/update",response.headers.get("Location")])
+      }else{
+        this.router.navigate(['error'],{ queryParams: { message: "Location header could not be read."}})
+      }
+    });
   }
 
   getCategories():void {
-    this.categoryService.getCategories().subscribe(categories => {
+    this.subscription = this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
       this.setCategory()
     });
@@ -49,5 +60,9 @@ export class TodoCreateComponent implements OnInit {
     if(0 < this.categories.length){
       this.todoFb.controls.category_id.setValue(this.categories[this.categories.length-1].id);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

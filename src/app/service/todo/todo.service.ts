@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders , HttpErrorResponse,HttpHeaderResponse,HttpResponse,HttpEventType} from '@angular/common/http';
-import { Observable,catchError,throwError,tap,map} from 'rxjs';
+import { Observable,catchError,throwError,tap,map, mergeMap} from 'rxjs';
 import { TodoListResponse } from '../../models/todo/TodoListResponse.model';
 import { TodoResponse } from '../../models/todo/TodoResponse.model';
 import { IS_ACTIVE,ACTIVE,IS_INACTIVE,State,toState } from 'src/app/models/todo/State';
@@ -40,9 +40,9 @@ export class TodoService {
     )
   }
 
-  addTodo(todo: TodoRequest): Observable<TodoIdResponse> {
+  addTodo(todo: TodoRequest): Observable<HttpResponse<TodoIdResponse>> {
     const url = `${environment.apiUrl}/todo`
-    return this.http.post<TodoIdResponse>(url, todo, {observe: 'response' as 'body'}).pipe(
+    return this.http.post<TodoIdResponse>(url, todo, {observe: 'response'}).pipe(
       catchError(error => this.handleError(error,this.router))
     );
   }
@@ -54,9 +54,12 @@ export class TodoService {
     );
   }
 
-  deleteTodo(todoId: number): Observable<any> {
+  deleteTodo(todoId: number): Observable<TodoListResponse[]> {
     const url = `${environment.apiUrl}/todo/${todoId}`
     return this.http.delete<any>(url).pipe(
+      mergeMap( _ =>
+        this.getTodos()
+      ),
       catchError(error => this.handleError(error,this.router))
     );
   }
