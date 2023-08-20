@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders , HttpErrorResponse} from '@angular/common/http';
+import { HttpClient, HttpHeaders , HttpErrorResponse, HttpResponse} from '@angular/common/http';
 import { Observable,catchError,throwError } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model';
 import { Color, toColor } from 'src/app/models/category/Color';
+import { CategoryIdResponse } from 'src/app/models/category/CategoryIdResponse.model';
+import { CategoryRequest } from 'src/app/models/category/CategoryRequest.model';
 
 @Injectable({
   providedIn: 'root'
@@ -22,6 +24,13 @@ export class CategoryService {
     (
       catchError(error => this.handleError(error,this.router))
     )
+  }
+
+  addCategory(category:CategoryRequest): Observable<HttpResponse<CategoryIdResponse>>{
+    const url = `${environment.apiUrl}/category`
+    return this.http.post<CategoryIdResponse>(url, category, {observe: 'response'}).pipe(
+      catchError(error => this.handleError(error,this.router))
+    );
   }
 
   getColorName(code:number):string {
