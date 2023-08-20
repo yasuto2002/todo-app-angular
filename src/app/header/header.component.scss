@@ -1,6 +1,11 @@
 @charset "utf-8";
-.header {
-    &-logo{
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 70%;
+    margin: 0 auto;
+    .header-logo{
         &_link{
             text-decoration: none;
             color: black;
