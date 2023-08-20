@@ -2,6 +2,6 @@
     <p class="list-category_name">{{category.name}}</p>
     <p class="list-category_slug">{{category.slug}}</p>
     <p class="list-category_color">{{this.categoryService.getColorName(category.color_code)}}</p>
-    <a href="" class="list-category_edit categoryList-category_linker">編集</a>
+    <a routerLink="update/{{ category.id }}" class="list-category_edit categoryList-category_linker">編集</a>
     <a href="" class="list-category_edit categoryList-category_linker">削除</a>
 </li>

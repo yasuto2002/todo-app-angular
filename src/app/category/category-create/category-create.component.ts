@@ -14,7 +14,7 @@ import { HttpResponse } from '@angular/common/http';
   templateUrl: './category-create.component.html',
   styleUrls: ['./category-create.component.scss']
 })
-export class CategoryCreateComponent implements OnInit,OnDestroy {
+export class CategoryCreateComponent implements OnDestroy {
 
   constructor(private formBuilder: FormBuilder, private categoryService: CategoryService,private router: Router){}
 
@@ -32,18 +32,17 @@ export class CategoryCreateComponent implements OnInit,OnDestroy {
   onSubmit(): void{
     const categoryRequest:CategoryRequest = this.categoryFb.value as CategoryRequest
     this.subscription = this.categoryService.addCategory(categoryRequest).subscribe((response: HttpResponse<CategoryIdResponse>) => {
-      this.router.navigate(["category"])
+      if(response.headers.get("Location")){
+        this.router.navigate(["category/update",response.headers.get("Location")])
+      }else{
+        this.router.navigate(['error'],{ queryParams: { message: "Location header could not be read."}})
+      }
     });
-  }  
+  }
 
-   ngOnInit(): void {
-
-
-     
-   }
 
    ngOnDestroy(): void {
-     
+     this.subscription.unsubscribe();
    }
 
 }

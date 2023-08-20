@@ -18,6 +18,10 @@ export class CategoryService {
     private router: Router
   ) { }
 
+  httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
+
   getCategories(): Observable<CategoryResponse[]>{
     const url = `${environment.apiUrl}/category`;
     return this.http.get<CategoryResponse[]>(url).pipe
@@ -26,9 +30,24 @@ export class CategoryService {
     )
   }
 
+  getCategory(id:number): Observable<CategoryResponse>{
+    const url = `${environment.apiUrl}/category/${id}`
+    return this.http.get<CategoryResponse>(url).pipe
+    (
+      catchError(error => this.handleError(error,this.router))
+    )
+  }
+
   addCategory(category:CategoryRequest): Observable<HttpResponse<CategoryIdResponse>>{
     const url = `${environment.apiUrl}/category`
     return this.http.post<CategoryIdResponse>(url, category, {observe: 'response'}).pipe(
+      catchError(error => this.handleError(error,this.router))
+    );
+  }
+
+  updateCategory(category:CategoryRequest,categoryId:number):Observable<CategoryResponse>{
+    const url = `${environment.apiUrl}/category/${categoryId}`
+    return this.http.put<CategoryResponse>(url, category, this.httpOptions).pipe(
       catchError(error => this.handleError(error,this.router))
     );
   }
