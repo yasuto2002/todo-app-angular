@@ -32,5 +32,5 @@
             <mat-option *ngFor="let color of colors" [value]="color.code">{{color.name}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-raised-button type="button" [disabled]="categoryFb.status === 'INVALID'" class="category-create_reg" (click)="onSubmit()">作成</button>
+    <button mat-raised-button type="button" [disabled]="categoryFb.status === 'INVALID'" class="category-create_reg" (click)="onSubmit()">更新</button>
 </form>
