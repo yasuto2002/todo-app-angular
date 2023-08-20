@@ -1,0 +1,14 @@
+<div class="categoryList">
+    <div class="categoryList-header"><a href="" class="categoryList-header_make">category作成</a></div>
+    <ul class="list">
+        <li class="list-category list-headline">
+            <p class="list-category_name">名前</p>
+            <p class="list-category_slug">表示名</p>
+            <p class="list-category_color">カラー</p>
+            <p class="list-category_edit categoryList-category_linker">編集</p>
+            <p class="categoryList-category_delete categoryList-category_linker">削除</p>
+        </li>
+        <app-category-list-item *ngFor="let category of categories" [category]="category"></app-category-list-item>
+    </ul>
+</div>
+
