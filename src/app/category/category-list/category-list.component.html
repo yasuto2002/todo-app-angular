@@ -8,7 +8,7 @@
             <p class="list-category_edit categoryList-category_linker">編集</p>
             <p class="categoryList-category_delete categoryList-category_linker">削除</p>
         </li>
-        <app-category-list-item *ngFor="let category of categories" [category]="category"></app-category-list-item>
+        <app-category-list-item *ngFor="let category of categories" [category]="category" (deleteCategory)="deleteCategory($event)"></app-category-list-item>
     </ul>
 </div>
 

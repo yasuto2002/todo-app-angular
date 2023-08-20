@@ -40,7 +40,6 @@ export class CategoryCreateComponent implements OnDestroy {
     });
   }
 
-
    ngOnDestroy(): void {
      this.subscription.unsubscribe();
    }

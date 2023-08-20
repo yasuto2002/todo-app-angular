@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders , HttpErrorResponse, HttpResponse} from '@angular/common/http';
-import { Observable,catchError,throwError } from 'rxjs';
+import { Observable,catchError,throwError,mergeMap } from 'rxjs';
 import { environment } from 'src/environments/environment.development';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model';
@@ -48,6 +48,16 @@ export class CategoryService {
   updateCategory(category:CategoryRequest,categoryId:number):Observable<CategoryResponse>{
     const url = `${environment.apiUrl}/category/${categoryId}`
     return this.http.put<CategoryResponse>(url, category, this.httpOptions).pipe(
+      catchError(error => this.handleError(error,this.router))
+    );
+  }
+
+  deleteCategory(categoryId:number):Observable<CategoryResponse[]> {
+    const url = `${environment.apiUrl}/category/${categoryId}`
+    return this.http.delete<any>(url).pipe(
+      mergeMap( _ =>
+        this.getCategories()
+      ),
       catchError(error => this.handleError(error,this.router))
     );
   }

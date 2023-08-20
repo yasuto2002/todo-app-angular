@@ -3,5 +3,5 @@
     <p class="list-category_slug">{{category.slug}}</p>
     <p class="list-category_color">{{this.categoryService.getColorName(category.color_code)}}</p>
     <a routerLink="update/{{ category.id }}" class="list-category_edit categoryList-category_linker">編集</a>
-    <a href="" class="list-category_edit categoryList-category_linker">削除</a>
+    <button class="list-category_edit categoryList-category_linker" (click)="onSubmit(category.id)">削除</button>
 </li>
