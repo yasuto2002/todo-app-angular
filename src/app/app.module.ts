@@ -8,8 +8,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { TodoModule } from './todo/todo.module';
 import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { TodoMockModule } from './apiMock/todo/todo-mock.module';
 import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatButtonModule,
     TodoModule,
     MatToolbarModule,
-    TodoMockModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

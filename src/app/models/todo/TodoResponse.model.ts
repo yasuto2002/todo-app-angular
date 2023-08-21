@@ -4,6 +4,6 @@ export interface TodoResponse {
     id: number;
     title: string;
     body: string;
-    state: number;
-    category_name: string;
+    state_code: number;
+    category_id: number;
 }

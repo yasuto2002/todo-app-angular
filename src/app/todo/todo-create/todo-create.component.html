@@ -1,0 +1,48 @@
+<h3>
+    Create Todo
+</h3>
+<form class="todo-create" [formGroup]="this.todoFb">
+    <div *ngIf="todoFb.controls.title && todoFb.controls.title.invalid && (todoFb.controls.title.dirty || todoFb.controls.title.touched)" class="todo-create_errorMessages">
+        <div *ngIf="todoFb.controls.title.errors?.['required']">
+            必須項目です
+        </div>
+        <div *ngIf="todoFb.controls.title.errors?.['pattern']">
+            英数字・日本語を入力することができます
+        </div>
+    </div>
+    <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title">
+    </mat-form-field>
+    <div *ngIf="todoFb.controls.body && todoFb.controls.body.invalid && (todoFb.controls.body.dirty || todoFb.controls.body.touched)" class="todo-create_errorMessages">
+        <div *ngIf="todoFb.controls.body.errors?.['required']">
+            必須項目です
+        </div>
+        <div *ngIf="todoFb.controls.body.errors?.['pattern']">
+            英数字・日本語・改行を入力することができます
+        </div>
+    </div>
+    <mat-form-field>
+        <mat-label>Body</mat-label>
+        <textarea matInput formControlName="body"></textarea>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>State</mat-label>
+        <mat-select formControlName="state_code">
+            <mat-option *ngFor="let state of states" [value]="state.code" disabled="true">{{state.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <div *ngIf="todoFb.controls.category_id && todoFb.controls.category_id.invalid && (todoFb.controls.category_id.dirty || todoFb.controls.category_id.touched)" class="todo-create_errorMessages">
+        <div *ngIf="todoFb.controls.category_id.errors?.['required']">
+            必須項目です
+        </div>
+    </div>
+    <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category_id">
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+    <button mat-raised-button type="button" [disabled]="todoFb.status === 'INVALID'" class="todo-create_reg" (click)="onSubmit()">作成</button>
+</form>
+  
