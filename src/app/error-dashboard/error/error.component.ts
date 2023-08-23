@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, ParamMap } from '@angular/router';
-import { Observable, of } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-error',
