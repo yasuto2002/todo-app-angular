@@ -1,15 +1,15 @@
 .categoryList{
     margin-top: 3%;
-    &-header{
+    .categoryList-header{
         display: flex;
         justify-content: flex-end;
         font-size: 16px;
-        &_make{
+        .categoryList-head_make{
             text-decoration: none;
         }
     }
     .list{
-        &-category{
+        .list-category{
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -24,7 +24,7 @@
                 text-align: center;
             }
         }
-        &-headline{
+        .list-headline{
             font-weight:bold;
         }
     }
