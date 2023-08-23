@@ -74,6 +74,18 @@ export class CategoryService {
     }
   }
 
+  getColorCode(code:number):string {
+    try{
+      const color: Color = toColor(code);
+      return color.rgb;
+    }catch{
+      this.router.navigate(['error'])
+      console.error('color conversion error');
+      
+      return "";
+    }
+  }
+
   private handleError(error: HttpErrorResponse,router:Router) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
