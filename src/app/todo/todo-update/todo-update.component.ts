@@ -43,7 +43,7 @@ export class TodoUpdateComponent implements OnInit, OnDestroy {
     category_id: [0, Validators.required],
   });
 
-  todoId: number = 0;
+  todoId = 0;
 
   todo: TodoResponse | null = null;
 

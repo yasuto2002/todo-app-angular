@@ -44,7 +44,7 @@ export class CategoryUpdateComponent implements OnInit, OnDestroy {
 
   colors = [RED, BLUE, GREEN];
 
-  categoryId: number = 0;
+  categoryId = 0;
 
   category: CategoryResponse | null = null;
 
