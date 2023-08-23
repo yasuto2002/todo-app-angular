@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TodoListResponse } from 'src/app/models/todo/TodoListResponse.model';
 import { TodoService } from 'src/app/service/todo/todo.service';
 import { Subscription } from 'rxjs';
+import { CategoryService } from 'src/app/service/category/category.service';
 
 @Component({
   selector: 'app-todo-list',
@@ -10,7 +11,7 @@ import { Subscription } from 'rxjs';
 })
 export class TodoListComponent implements OnInit, OnDestroy {
 
-  constructor(public todoService:TodoService){}
+  constructor(public todoService:TodoService, public categoryService:CategoryService ){}
 
   displayedColumns: string[] = ['title', 'body', 'state','category','edit','delete'];
 
