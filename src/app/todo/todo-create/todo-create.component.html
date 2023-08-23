@@ -43,6 +43,6 @@
             <mat-option *ngFor="let category of categories" [value]="category.id">{{category.name}}</mat-option>
         </mat-select>
     </mat-form-field>
-    <button mat-raised-button type="button" [disabled]="todoFb.status === 'INVALID'" class="todo-create_reg" (click)="onSubmit()">作成</button>
+    <button mat-raised-button type="button" [disabled]="todoFb.invalid" class="todo-create_reg" (click)="onSubmit()">作成</button>
 </form>
   
