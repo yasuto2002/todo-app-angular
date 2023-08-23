@@ -1,9 +1,9 @@
-import { untracked } from "@angular/core";
+import { untracked } from '@angular/core';
 
 export interface TodoResponse {
-    id: number;
-    title: string;
-    body: string;
-    state_code: number;
-    category_id: number;
+  id: number;
+  title: string;
+  body: string;
+  state_code: number;
+  category_id: number;
 }

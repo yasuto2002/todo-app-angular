@@ -1,3 +1,3 @@
 export interface TodoIdResponse {
-    id: number;
+  id: number;
 }

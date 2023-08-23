@@ -5,13 +5,13 @@ import { CategoryCreateComponent } from './category-create/category-create.compo
 import { CategoryUpdateComponent } from './category-update/category-update.component';
 
 const routes: Routes = [
-  { path:'', component:CategoryListComponent },
-  { path:'create', component:CategoryCreateComponent },
-  { path:'update/:id', component:CategoryUpdateComponent },
+  { path: '', component: CategoryListComponent },
+  { path: 'create', component: CategoryCreateComponent },
+  { path: 'update/:id', component: CategoryUpdateComponent },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class CategoryRoutingModule { }
+export class CategoryRoutingModule {}

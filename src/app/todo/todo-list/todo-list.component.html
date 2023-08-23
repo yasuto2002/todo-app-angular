@@ -1,38 +1,53 @@
 <div class="todoList">
   <a routerLink="/create" class="todoList-create">todo作成</a>
   <table mat-table [dataSource]="todos" class="mat-elevation-z8">
+    <ng-container matColumnDef="title">
+      <th mat-header-cell *matHeaderCellDef>Title</th>
+      <td mat-cell *matCellDef="let element">{{ element.title }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="title">
-          <th mat-header-cell *matHeaderCellDef> Title </th>
-          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
-      </ng-container>
+    <ng-container matColumnDef="body">
+      <th mat-header-cell *matHeaderCellDef>Body</th>
+      <td mat-cell *matCellDef="let element">{{ element.body }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="body">
-        <th mat-header-cell *matHeaderCellDef> Body </th>
-        <td mat-cell *matCellDef="let element"> {{element.body}} </td>
-      </ng-container>
+    <ng-container matColumnDef="state">
+      <th mat-header-cell *matHeaderCellDef>State</th>
+      <td mat-cell *matCellDef="let element">
+        {{ this.todoService.getStateName(element.state_code) }}
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="state">
-        <th mat-header-cell *matHeaderCellDef> State </th>
-        <td mat-cell *matCellDef="let element"> {{this.todoService.getStateName(element.state_code)}} </td>
-      </ng-container>
-    
-      <ng-container matColumnDef="category">
-        <th mat-header-cell *matHeaderCellDef> Category </th>
-        <td mat-cell *matCellDef="let element" [ngStyle]="{'color': this.categoryService.getColorCode(element.category.color_code)}" > {{element.category.name}}</td>
-      </ng-container>
-    
-      <ng-container matColumnDef="edit">
-          <th mat-header-cell *matHeaderCellDef> Edit </th>
-          <td mat-cell *matCellDef="let element"> <a routerLink="/update/{{ element.id }}" mat-raised-button>Edit</a></td>
-      </ng-container>
+    <ng-container matColumnDef="category">
+      <th mat-header-cell *matHeaderCellDef>Category</th>
+      <td
+        mat-cell
+        *matCellDef="let element"
+        [ngStyle]="{
+          color: this.categoryService.getColorCode(element.category.color_code)
+        }"
+      >
+        {{ element.category.name }}
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="delete">
-          <th mat-header-cell *matHeaderCellDef> Delete </th>
-          <td mat-cell *matCellDef="let element"> <button mat-raised-button (click)="todoDelete(element.id)">Delete</button></td>
-      </ng-container>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef>Edit</th>
+      <td mat-cell *matCellDef="let element">
+        <a routerLink="/update/{{ element.id }}" mat-raised-button>Edit</a>
+      </td>
+    </ng-container>
 
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <ng-container matColumnDef="delete">
+      <th mat-header-cell *matHeaderCellDef>Delete</th>
+      <td mat-cell *matCellDef="let element">
+        <button mat-raised-button (click)="todoDelete(element.id)">
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
 </div>

@@ -1,7 +1,23 @@
 <li class="list-category list-headline">
-    <p class="list-category_name">{{category.name}}</p>
-    <p class="list-category_slug">{{category.slug}}</p>
-    <p class="list-category_color" [ngStyle]="{'color': this.categoryService.getColorCode(category.color_code)}">{{this.categoryService.getColorName(category.color_code)}}</p>
-    <a routerLink="update/{{ category.id }}" class="list-category_edit categoryList-category_linker">編集</a>
-    <button class="list-category_edit categoryList-category_linker" (click)="onSubmit(category.id)">削除</button>
+  <p class="list-category_name">{{ category.name }}</p>
+  <p class="list-category_slug">{{ category.slug }}</p>
+  <p
+    class="list-category_color"
+    [ngStyle]="{
+      color: this.categoryService.getColorCode(category.color_code)
+    }"
+  >
+    {{ this.categoryService.getColorName(category.color_code) }}
+  </p>
+  <a
+    routerLink="update/{{ category.id }}"
+    class="list-category_edit categoryList-category_linker"
+    >編集</a
+  >
+  <button
+    class="list-category_edit categoryList-category_linker"
+    (click)="onSubmit(category.id)"
+  >
+    削除
+  </button>
 </li>

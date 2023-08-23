@@ -1,4 +1,4 @@
-import { Component,OnInit,OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CategoryService } from 'src/app/service/category/category.service';
 import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model';
 import { Subscription } from 'rxjs';
@@ -6,17 +6,16 @@ import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-category-list',
   templateUrl: './category-list.component.html',
-  styleUrls: ['./category-list.component.scss']
+  styleUrls: ['./category-list.component.scss'],
 })
-export class CategoryListComponent implements OnInit,OnDestroy {
+export class CategoryListComponent implements OnInit, OnDestroy {
+  constructor(private categoryService: CategoryService) {}
 
-  constructor(private categoryService:CategoryService){}
+  categories: Array<CategoryResponse> = [];
 
- categories:Array<CategoryResponse> = []
+  subscription: Subscription = new Subscription();
 
- subscription:Subscription = new Subscription()
-
-  ngOnInit():void{
+  ngOnInit(): void {
     this.getCategory();
   }
 
@@ -24,12 +23,19 @@ export class CategoryListComponent implements OnInit,OnDestroy {
     this.subscription.unsubscribe();
   }
 
-  getCategory():void{
-    this.subscription.add(this.categoryService.getCategories().subscribe(categories => this.categories = categories));
+  getCategory(): void {
+    this.subscription.add(
+      this.categoryService
+        .getCategories()
+        .subscribe((categories) => (this.categories = categories)),
+    );
   }
 
-  deleteCategory(category_id:number):void{
-    this.subscription.add(this.categoryService.deleteCategory(category_id).subscribe( categories => this.categories = categories));
+  deleteCategory(category_id: number): void {
+    this.subscription.add(
+      this.categoryService
+        .deleteCategory(category_id)
+        .subscribe((categories) => (this.categories = categories)),
+    );
   }
-
 }

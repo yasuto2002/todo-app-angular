@@ -8,7 +8,7 @@ describe('TodoUpdateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [TodoUpdateComponent]
+      declarations: [TodoUpdateComponent],
     });
     fixture = TestBed.createComponent(TodoUpdateComponent);
     component = fixture.componentInstance;

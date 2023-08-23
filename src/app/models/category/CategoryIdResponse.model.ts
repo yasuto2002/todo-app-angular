@@ -1,3 +1,3 @@
 export interface CategoryIdResponse {
-    id: number;
+  id: number;
 }

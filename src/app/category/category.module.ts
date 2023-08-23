@@ -6,8 +6,8 @@ import { CategoryListItemComponent } from './category-list/category-list-item/ca
 import { CategoryCreateComponent } from './category-create/category-create.component';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule} from '@angular/material/form-field';
-import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CategoryUpdateComponent } from './category-update/category-update.component';
 
 @NgModule({
@@ -15,7 +15,7 @@ import { CategoryUpdateComponent } from './category-update/category-update.compo
     CategoryListComponent,
     CategoryListItemComponent,
     CategoryCreateComponent,
-    CategoryUpdateComponent
+    CategoryUpdateComponent,
   ],
   imports: [
     CommonModule,
@@ -24,7 +24,7 @@ import { CategoryUpdateComponent } from './category-update/category-update.compo
     MatInputModule,
     MatFormFieldModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+  ],
 })
-export class CategoryModule { }
+export class CategoryModule {}

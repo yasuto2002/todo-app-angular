@@ -1,36 +1,58 @@
-<h3>
-    Create Category
-</h3>
+<h3>Create Category</h3>
 <form class="category-create" [formGroup]="this.categoryFb">
-    <div *ngIf="categoryFb.controls.name && categoryFb.controls.name.invalid && (categoryFb.controls.name.dirty || categoryFb.controls.name.touched)" class="category-create_errorMessages">
-        <div *ngIf="categoryFb.controls.name.errors?.['required']">
-            必須項目です
-        </div>
-        <div *ngIf="categoryFb.controls.name.errors?.['pattern']">
-            英数字・日本語を入力することができます
-        </div>
+  <div
+    *ngIf="
+      categoryFb.controls.name &&
+      categoryFb.controls.name.invalid &&
+      (categoryFb.controls.name.dirty || categoryFb.controls.name.touched)
+    "
+    class="category-create_errorMessages"
+  >
+    <div *ngIf="categoryFb.controls.name.errors?.['required']">
+      必須項目です
     </div>
-    <mat-form-field>
-        <mat-label>Name</mat-label>
-        <input matInput formControlName="name">
-    </mat-form-field>
-    <div *ngIf="categoryFb.controls.slug && categoryFb.controls.slug.invalid && (categoryFb.controls.slug.dirty || categoryFb.controls.slug.touched)" class="category-create_errorMessages">
-        <div *ngIf="categoryFb.controls.slug.errors?.['required']">
-            必須項目です
-        </div>
-        <div *ngIf="categoryFb.controls.slug.errors?.['pattern']">
-            英数字・日本語・改行を入力することができます
-        </div>
+    <div *ngIf="categoryFb.controls.name.errors?.['pattern']">
+      英数字・日本語を入力することができます
     </div>
-    <mat-form-field>
-        <mat-label>Slug</mat-label>
-        <input matInput formControlName="slug" />
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Color</mat-label>
-        <mat-select formControlName="color_code">
-            <mat-option *ngFor="let color of colors" [value]="color.code">{{color.name}}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <button mat-raised-button type="button" [disabled]="categoryFb.invalid" class="category-create_reg" (click)="onSubmit()">作成</button>
+  </div>
+  <mat-form-field>
+    <mat-label>Name</mat-label>
+    <input matInput formControlName="name" />
+  </mat-form-field>
+  <div
+    *ngIf="
+      categoryFb.controls.slug &&
+      categoryFb.controls.slug.invalid &&
+      (categoryFb.controls.slug.dirty || categoryFb.controls.slug.touched)
+    "
+    class="category-create_errorMessages"
+  >
+    <div *ngIf="categoryFb.controls.slug.errors?.['required']">
+      必須項目です
+    </div>
+    <div *ngIf="categoryFb.controls.slug.errors?.['pattern']">
+      英数字・日本語・改行を入力することができます
+    </div>
+  </div>
+  <mat-form-field>
+    <mat-label>Slug</mat-label>
+    <input matInput formControlName="slug" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Color</mat-label>
+    <mat-select formControlName="color_code">
+      <mat-option *ngFor="let color of colors" [value]="color.code">{{
+        color.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button
+    mat-raised-button
+    type="button"
+    [disabled]="categoryFb.invalid"
+    class="category-create_reg"
+    (click)="onSubmit()"
+  >
+    作成
+  </button>
 </form>
