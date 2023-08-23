@@ -31,13 +31,13 @@ export class CategoryCreateComponent implements OnDestroy {
 
   onSubmit(): void{
     const categoryRequest:CategoryRequest = this.categoryFb.value as CategoryRequest
-    this.subscription = this.categoryService.addCategory(categoryRequest).subscribe((response: HttpResponse<CategoryIdResponse>) => {
+    this.subscription.add(this.categoryService.addCategory(categoryRequest).subscribe((response: HttpResponse<CategoryIdResponse>) => {
       if(response.headers.get("Location")){
         this.router.navigate(["category/update",response.headers.get("Location")])
       }else{
         this.router.navigate(['error'],{ queryParams: { message: "Location header could not be read."}})
       }
-    });
+    }));
   }
 
    ngOnDestroy(): void {

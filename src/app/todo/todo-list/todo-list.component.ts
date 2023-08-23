@@ -19,7 +19,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   subscription:Subscription = new Subscription()
 
   getTodos():void{
-    this.subscription = this.todoService.getTodos().subscribe(todos => this.todos = todos)
+    this.subscription.add(this.todoService.getTodos().subscribe(todos => this.todos = todos))
   }
 
   ngOnInit():void{
@@ -27,7 +27,7 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   todoDelete(todoId:number){
-    this.subscription = this.todoService.deleteTodo(todoId).subscribe( todos => this.todos = todos)
+    this.subscription.add(this.todoService.deleteTodo(todoId).subscribe( todos => this.todos = todos))
   }
 
   ngOnDestroy(){

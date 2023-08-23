@@ -34,21 +34,21 @@ export class CategoryUpdateComponent implements OnInit, OnDestroy {
 
   onSubmit(): void{
     const categoryRequest:CategoryRequest = this.categoryFb.value as CategoryRequest;
-    this.subscription = this.categoryService.updateCategory(categoryRequest,this.categoryId).subscribe(_ => this.router.navigate(["category"]))
+    this.subscription.add(this.categoryService.updateCategory(categoryRequest,this.categoryId).subscribe(_ => this.router.navigate(["category"])))
   }
 
   ngOnInit(): void {
-    this.subscription = this.route.params.subscribe(params => {
+    this.subscription.add(this.route.params.subscribe(params => {
       this.categoryId = +params['id']; 
-    });
+    }));
     this.getCategory();
   }
   getCategory(){
-    this.subscription = this.categoryService.getCategory(this.categoryId).subscribe(categpry => {
+    this.subscription.add(this.categoryService.getCategory(this.categoryId).subscribe(categpry => {
       this.categoryFb.controls.name.setValue(categpry.name);
       this.categoryFb.controls.slug.setValue(categpry.slug);
       this.categoryFb.controls.color_code.setValue(categpry.color_code);
-    })
+    }));
   }
   ngOnDestroy(): void {
     this.subscription.unsubscribe();

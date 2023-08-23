@@ -36,21 +36,21 @@ export class TodoCreateComponent implements OnInit, OnDestroy {
 
   onSubmit():void{
     const todoRequest: TodoRequest = this.todoFb.value as TodoRequest;
-    this.subscription = this.todoService.addTodo(todoRequest).subscribe((response: HttpResponse<TodoIdResponse>) => {
+    this.subscription.add(this.todoService.addTodo(todoRequest).subscribe((response: HttpResponse<TodoIdResponse>) => {
       if(response.headers.get("Location") != null){
         const newTodoId =  new URL(response.headers.get("Location")!,environment.apiUrl).pathname.split('/todo/').pop();
         this.router.navigate(["todo/update",newTodoId])
       }else{
         this.router.navigate(['error'],{ queryParams: { message: "Location header could not be read."}})
       }
-    });
+    }));
   }
 
   getCategories():void {
-    this.subscription = this.categoryService.getCategories().subscribe(categories => {
+    this.subscription.add(this.categoryService.getCategories().subscribe(categories => {
       this.categories = categories;
       this.setCategory()
-    });
+    }));
   }
 
   ngOnInit():void{

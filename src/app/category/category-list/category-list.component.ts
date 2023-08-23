@@ -25,11 +25,11 @@ export class CategoryListComponent implements OnInit,OnDestroy {
   }
 
   getCategory():void{
-    this.subscription = this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+    this.subscription.add(this.categoryService.getCategories().subscribe(categories => this.categories = categories));
   }
 
   deleteCategory(category_id:number):void{
-    this.subscription = this.categoryService.deleteCategory(category_id).subscribe( categories => this.categories = categories)
+    this.subscription.add(this.categoryService.deleteCategory(category_id).subscribe( categories => this.categories = categories));
   }
 
 }

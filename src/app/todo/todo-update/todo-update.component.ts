@@ -38,26 +38,26 @@ export class TodoUpdateComponent implements OnInit, OnDestroy {
 
   onSubmit():void{
     const todoRequest: TodoRequest = this.todoFb.value as TodoRequest;
-    this.subscription = this.todoService.updateTodo(todoRequest,this.todoId).subscribe(_ => this.router.navigate(["todo"]));
+    this.subscription.add(this.todoService.updateTodo(todoRequest,this.todoId).subscribe(_ => this.router.navigate(["todo"])));
   }
 
   getCategories():void {
-    this.subscription = this.categoryService.getCategories().subscribe(categories => this.categories = categories);
+    this.subscription.add(this.categoryService.getCategories().subscribe(categories => this.categories = categories));
   } 
 
   getTodo(id:number):void{
-    this.subscription = this.todoService.getTodo(id).subscribe(todo => {
+    this.subscription.add(this.todoService.getTodo(id).subscribe(todo => {
       this.todoFb.controls.title.setValue(todo.title);
       this.todoFb.controls.body.setValue(todo.body);
       this.todoFb.controls.state_code.setValue(todo.state_code);
       this.todoFb.controls.category_id.setValue(todo.category_id);
-    })
+    }))
   }
 
   ngOnInit():void{
-    this.subscription = this.route.params.subscribe(params => {
+    this.subscription.add(this.route.params.subscribe(params => {
       this.todoId = +params['id']; 
-    });
+    }));
     this.getCategories();
     this.getTodo(this.todoId);
   }
