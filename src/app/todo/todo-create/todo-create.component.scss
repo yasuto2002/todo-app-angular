@@ -7,10 +7,10 @@ h3 {
   flex-direction: column;
   width: 70%;
   margin: auto;
-  &_reg {
+  .todo-create_reg {
     width: 20%;
   }
-  &_errorMessages {
+  .todo-create_errorMessages {
     color: #ff0000;
   }
 }

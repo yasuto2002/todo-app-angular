@@ -1,5 +1,5 @@
 .list {
-  &-category {
+  .list-category {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,7 +14,7 @@
       text-align: center;
     }
   }
-  &-headline {
+  .list-headline {
     font-weight: bold;
   }
 }

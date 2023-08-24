@@ -6,10 +6,10 @@ h3 {
   flex-direction: column;
   width: 70%;
   margin: auto;
-  &_reg {
+  .category-create_reg {
     width: 20%;
   }
-  &_errorMessages {
+  .category-create_errorMessages {
     color: #ff0000;
   }
 }
