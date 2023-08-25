@@ -12,6 +12,8 @@ import { CategoryResponse } from 'src/app/models/category/CategoryResponse.model
 import { Color, toColor } from 'src/app/models/category/Color';
 import { CategoryIdResponse } from 'src/app/models/category/CategoryIdResponse.model';
 import { CategoryRequest } from 'src/app/models/category/CategoryRequest.model';
+import { Store } from '@ngxs/store';
+import { ErrorAction } from 'src/app/store/eroor/error.action';
 
 @Injectable({
   providedIn: 'root',
@@ -20,6 +22,7 @@ export class CategoryService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private store: Store,
   ) {}
 
   httpOptions = {
@@ -94,12 +97,18 @@ export class CategoryService {
   private handleError(error: HttpErrorResponse, router: Router) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
-    } else if (error.status === 500) {
-      router.navigate(['error'], {
-        queryParams: { message: 'api server error' },
-      });
+      this.store.dispatch(new ErrorAction.Set(error.message));
+      router.navigate(['error']);
+    } else if (
+      error.status === 400 ||
+      error.status === 404 ||
+      error.status === 500
+    ) {
+      this.store.dispatch(new ErrorAction.Set(error.message));
+      router.navigate(['error']);
     } else {
-      console.error(`Backend returned code`, error.error);
+      this.store.dispatch(new ErrorAction.Set('server error'));
+      router.navigate(['error']);
     }
     // Return an observable with a user-facing error message.
     return throwError(

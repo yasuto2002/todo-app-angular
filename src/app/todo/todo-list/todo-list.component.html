@@ -1,6 +1,6 @@
 <div class="todoList">
   <a routerLink="/create" class="todoList-create">todo作成</a>
-  <table mat-table [dataSource]="todos" class="mat-elevation-z8">
+  <table mat-table [dataSource]="todos$" class="mat-elevation-z8">
     <ng-container matColumnDef="title">
       <th mat-header-cell *matHeaderCellDef>Title</th>
       <td mat-cell *matCellDef="let element">{{ element.title }}</td>

@@ -8,7 +8,11 @@ import { TodoRequest } from 'src/app/models/todo/TodoRequest.model';
 import { TodoService } from 'src/app/service/todo/todo.service';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { TodoResponse } from 'src/app/models/todo/TodoResponse.model';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { TodoAction } from 'src/app/store/todo/todo.actions';
+import { TodoState, TodoStateModel } from 'src/app/store/todo/todo.state';
+import { Select } from '@ngxs/store';
+import { Store } from '@ngxs/store';
 
 @Component({
   selector: 'app-todo-update',
@@ -22,7 +26,10 @@ export class TodoUpdateComponent implements OnInit, OnDestroy {
     private categoryService: CategoryService,
     private todoService: TodoService,
     private router: Router,
+    private store: Store,
   ) {}
+
+  @Select(TodoState.todo) todo$!: Observable<TodoResponse>;
 
   todoFb = this.formBuilder.group({
     title: [
@@ -45,8 +52,6 @@ export class TodoUpdateComponent implements OnInit, OnDestroy {
 
   todoId = 0;
 
-  todo: TodoResponse | null = null;
-
   categories: CategoryResponse[] = [];
 
   states = [IS_INACTIVE, IS_ACTIVE, ACTIVE];
@@ -55,30 +60,27 @@ export class TodoUpdateComponent implements OnInit, OnDestroy {
 
   onSubmit(): void {
     const todoRequest: TodoRequest = this.todoFb.value as TodoRequest;
-    this.subscription.add(
-      this.todoService
-        .updateTodo(todoRequest, this.todoId)
-        .subscribe((_) => this.router.navigate(['todo'])),
-    );
+
+    this.store
+      .dispatch(new TodoAction.Update(todoRequest, this.todoId))
+      .subscribe((_) => this.router.navigate(['todo']));
   }
 
   getCategories(): void {
-    this.subscription.add(
-      this.categoryService
-        .getCategories()
-        .subscribe((categories) => (this.categories = categories)),
-    );
+    this.subscription = this.categoryService
+      .getCategories()
+      .subscribe((categories) => (this.categories = categories));
   }
 
-  getTodo(id: number): void {
-    this.subscription.add(
-      this.todoService.getTodo(id).subscribe((todo) => {
+  getTodo(todoId: number): void {
+    this.store.dispatch(new TodoAction.Get(todoId)).subscribe((_) => {
+      this.subscription = this.todo$.subscribe((todo) => {
         this.todoFb.controls.title.setValue(todo.title);
         this.todoFb.controls.body.setValue(todo.body);
         this.todoFb.controls.state_code.setValue(todo.state_code);
         this.todoFb.controls.category_id.setValue(todo.category_id);
-      }),
-    );
+      });
+    });
   }
 
   ngOnInit(): void {

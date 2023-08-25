@@ -10,6 +10,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { TodoCreateComponent } from './todo-create/todo-create.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TodoUpdateComponent } from './todo-update/todo-update.component';
+import { NgxsModule } from '@ngxs/store';
+import { TodoState } from '../store/todo/todo.state';
+import { ErrorDashboardModule } from '../error-dashboard/error-dashboard.module';
 
 @NgModule({
   declarations: [TodoListComponent, TodoCreateComponent, TodoUpdateComponent],
@@ -23,6 +26,8 @@ import { TodoUpdateComponent } from './todo-update/todo-update.component';
     MatSelectModule,
     FormsModule,
     ReactiveFormsModule,
+    ErrorDashboardModule,
+    NgxsModule.forRoot([TodoState]),
   ],
 })
 export class TodoModule {}
