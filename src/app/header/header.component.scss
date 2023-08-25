@@ -1,9 +1,14 @@
 @charset "utf-8";
-.header {
-    &-logo{
-        &_link{
-            text-decoration: none;
-            color: black;
-        }
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  margin: 0 auto;
+  .header-logo {
+    .header-logo_link {
+      text-decoration: none;
+      color: black;
     }
+  }
 }

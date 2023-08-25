@@ -1,0 +1,15 @@
+h3 {
+  margin-left: 15%;
+}
+.category-update {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  .category-update_reg {
+    width: 20%;
+  }
+  .category-update_errorMessages {
+    color: #ff0000;
+  }
+}

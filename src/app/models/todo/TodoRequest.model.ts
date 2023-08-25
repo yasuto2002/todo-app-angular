@@ -1,6 +1,6 @@
-export interface TodoRequest{
-    title: string;
-    body: string;
-    state_code: number;
-    category_id: number;
+export interface TodoRequest {
+  title: string;
+  body: string;
+  state_code: number;
+  category_id: number;
 }

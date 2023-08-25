@@ -1,8 +1,8 @@
-import { untracked } from "@angular/core";
+import { untracked } from '@angular/core';
 
 export interface CategoryResponse {
-    id: number;
-    name: string;
-    slug: string;
-    color_code: number;
+  id: number;
+  name: string;
+  slug: string;
+  color_code: number;
 }

@@ -1,12 +1,15 @@
-.todo-update{
-    display: flex;
-    flex-direction: column;
-    width:  70%;
-    margin: auto;
-    &_reg{
-        width: 20%;
-    }
-    &_errorMessages{
-        color: #ff0000;
-    }
+h3 {
+  margin-left: 15%;
+}
+.todo-update {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  .todo-update_reg {
+    width: 20%;
+  }
+  .todo-update_errorMessages {
+    color: #ff0000;
+  }
 }

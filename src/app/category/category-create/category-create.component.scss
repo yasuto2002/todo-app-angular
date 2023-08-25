@@ -1,0 +1,15 @@
+h3 {
+  margin-left: 15%;
+}
+.category-create {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  .category-create_reg {
+    width: 20%;
+  }
+  .category-create_errorMessages {
+    color: #ff0000;
+  }
+}

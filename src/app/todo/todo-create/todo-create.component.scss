@@ -1,12 +1,16 @@
-.todo-create{
-    display: flex;
-    flex-direction: column;
-    width:  70%;
-    margin: auto;
-    &_reg{
-        width: 20%;
-    }
-    &_errorMessages{
-        color: #ff0000;
-    }
+h3 {
+  width: 70%;
+  margin-left: 15%;
+}
+.todo-create {
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  .todo-create_reg {
+    width: 20%;
+  }
+  .todo-create_errorMessages {
+    color: #ff0000;
+  }
 }
