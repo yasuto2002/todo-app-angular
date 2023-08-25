@@ -67,19 +67,23 @@ export class TodoUpdateComponent implements OnInit, OnDestroy {
   }
 
   getCategories(): void {
-    this.subscription = this.categoryService
-      .getCategories()
-      .subscribe((categories) => (this.categories = categories));
+    this.subscription.add(
+      this.categoryService
+        .getCategories()
+        .subscribe((categories) => (this.categories = categories)),
+    );
   }
 
   getTodo(todoId: number): void {
     this.store.dispatch(new TodoAction.Get(todoId)).subscribe((_) => {
-      this.subscription = this.todo$.subscribe((todo) => {
-        this.todoFb.controls.title.setValue(todo.title);
-        this.todoFb.controls.body.setValue(todo.body);
-        this.todoFb.controls.state_code.setValue(todo.state_code);
-        this.todoFb.controls.category_id.setValue(todo.category_id);
-      });
+      this.subscription.add(
+        this.todo$.subscribe((todo) => {
+          this.todoFb.controls.title.setValue(todo.title);
+          this.todoFb.controls.body.setValue(todo.body);
+          this.todoFb.controls.state_code.setValue(todo.state_code);
+          this.todoFb.controls.category_id.setValue(todo.category_id);
+        }),
+      );
     });
   }
 

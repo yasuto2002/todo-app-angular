@@ -60,8 +60,8 @@ export class TodoCreateComponent implements OnInit, OnDestroy {
   onSubmit(): void {
     const todoRequest: TodoRequest = this.todoFb.value as TodoRequest;
     this.store.dispatch(new TodoAction.Add(todoRequest)).subscribe((_) => {
-      this.subscription = this.toidId$.subscribe(
-        (response: HttpResponse<TodoIdResponse>) => {
+      this.subscription.add(
+        this.toidId$.subscribe((response: HttpResponse<TodoIdResponse>) => {
           if (response.headers.get('Location') != null) {
             const newTodoId = new URL(
               response.headers.get('Location')!,
@@ -76,7 +76,7 @@ export class TodoCreateComponent implements OnInit, OnDestroy {
             );
             this.router.navigate(['error']);
           }
-        },
+        }),
       );
     });
   }
