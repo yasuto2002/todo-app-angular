@@ -10,6 +10,9 @@ import { HeaderComponent } from './header/header.component';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { HttpClientModule } from '@angular/common/http';
 import { MatTabsModule } from '@angular/material/tabs';
+import { ErrorDashboardModule } from './error-dashboard/error-dashboard.module';
+import { NgxsModule } from '@ngxs/store';
+import { ErrorState } from './store/eroor/error.state';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
@@ -21,6 +24,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatToolbarModule,
     HttpClientModule,
     MatTabsModule,
+    ErrorDashboardModule,
+    NgxsModule.forRoot([ErrorState]),
   ],
   providers: [],
   bootstrap: [AppComponent],

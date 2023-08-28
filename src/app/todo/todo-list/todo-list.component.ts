@@ -1,20 +1,19 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { TodoListResponse } from 'src/app/models/todo/TodoListResponse.model';
 import { TodoService } from 'src/app/service/todo/todo.service';
-import { Subscription } from 'rxjs';
 import { CategoryService } from 'src/app/service/category/category.service';
+import { Observable, Subscription } from 'rxjs';
+import { Store, Select } from '@ngxs/store';
+import { toState } from 'src/app/models/todo/State';
+import { TodoState } from 'src/app/store/todo/todo.state';
+import { TodoAction } from 'src/app/store/todo/todo.actions';
 
 @Component({
   selector: 'app-todo-list',
   templateUrl: './todo-list.component.html',
   styleUrls: ['./todo-list.component.scss'],
 })
-export class TodoListComponent implements OnInit, OnDestroy {
-  constructor(
-    public todoService: TodoService,
-    public categoryService: CategoryService,
-  ) {}
-
+export class TodoListComponent implements OnInit {
   displayedColumns: string[] = [
     'title',
     'body',
@@ -23,15 +22,18 @@ export class TodoListComponent implements OnInit, OnDestroy {
     'edit',
     'delete',
   ];
+  constructor(
+    public todoService: TodoService,
+    private store: Store,
+    public categoryService: CategoryService,
+  ) {}
 
   todos: TodoListResponse[] = [];
 
-  subscription: Subscription = new Subscription();
+  @Select(TodoState.todos) todos$!: Observable<TodoListResponse[]>;
 
   getTodos(): void {
-    this.subscription.add(
-      this.todoService.getTodos().subscribe((todos) => (this.todos = todos)),
-    );
+    this.store.dispatch(new TodoAction.GetAll());
   }
 
   ngOnInit(): void {
@@ -39,14 +41,6 @@ export class TodoListComponent implements OnInit, OnDestroy {
   }
 
   todoDelete(todoId: number) {
-    this.subscription.add(
-      this.todoService
-        .deleteTodo(todoId)
-        .subscribe((todos) => (this.todos = todos)),
-    );
-  }
-
-  ngOnDestroy() {
-    this.subscription.unsubscribe();
+    this.store.dispatch(new TodoAction.Delete(todoId));
   }
 }

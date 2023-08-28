@@ -3,24 +3,19 @@ import {
   HttpClient,
   HttpHeaders,
   HttpErrorResponse,
-  HttpHeaderResponse,
   HttpResponse,
-  HttpEventType,
 } from '@angular/common/http';
 import { Observable, catchError, throwError, tap, map, mergeMap } from 'rxjs';
 import { TodoListResponse } from '../../models/todo/TodoListResponse.model';
 import { TodoResponse } from '../../models/todo/TodoResponse.model';
-import {
-  IS_ACTIVE,
-  ACTIVE,
-  IS_INACTIVE,
-  State,
-  toState,
-} from 'src/app/models/todo/State';
+import { State, toState } from 'src/app/models/todo/State';
 import { environment } from 'src/environments/environment.development';
 import { Router, ActivatedRoute } from '@angular/router';
 import { TodoRequest } from 'src/app/models/todo/TodoRequest.model';
 import { TodoIdResponse } from 'src/app/models/todo/TodoIdResponse.model';
+import { Store } from '@ngxs/store';
+import { ErrorState } from 'src/app/store/eroor/error.state';
+import { ErrorAction } from 'src/app/store/eroor/error.action';
 
 @Injectable({
   providedIn: 'root',
@@ -29,6 +24,7 @@ export class TodoService {
   constructor(
     private http: HttpClient,
     private router: Router,
+    private store: Store,
   ) {}
 
   httpOptions = {
@@ -87,14 +83,18 @@ export class TodoService {
   private handleError(error: HttpErrorResponse, router: Router) {
     if (error.status === 0) {
       console.error('An error occurred:', error.error);
+      this.store.dispatch(new ErrorAction.Set(error.message));
+      router.navigate(['error']);
     } else if (
       error.status === 400 ||
       error.status === 404 ||
       error.status === 500
     ) {
-      router.navigate(['error'], { queryParams: { message: error.message } });
+      this.store.dispatch(new ErrorAction.Set(error.message));
+      router.navigate(['error']);
     } else {
-      console.error(`Backend returned code`, error.error);
+      this.store.dispatch(new ErrorAction.Set('server error'));
+      router.navigate(['error']);
     }
     // Return an observable with a user-facing error message.
     return throwError(
